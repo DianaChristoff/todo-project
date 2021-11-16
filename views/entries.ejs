@@ -1,0 +1,51 @@
+<%- include ('partials/header.ejs') %>
+
+<section id="tasks" class="tasks">
+
+    <div class="shadow" style="box-shadow: unset !important;"></div>
+    <div class="content opacity container">
+
+        <div class="col-sm-12 col-md-11 mx-auto">
+            <div class="cursive-txt" style="text-align: center;">Entries
+               <a class="btn btn-outline-secondary" href='/entry/add' role="button" style="color: white !important;border-radius: 50px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Add New Entry">
+                    <span  class="material-icons my-1" style="text-decoration:none;color:white !important;font-size: 2rem;">bookmark_add</span>
+                </a>
+            </div>
+
+            <div id="entry_list">
+                <% if (entries && entries.length) { %>
+                    <div>You can add a new entry by clicking button above</div>
+                    <% for(var i=0;i < entries.length;i++){ %>
+                        <div class="card">
+                            <div class="card-header" id="entry_<%=entries[i]._id%>" style="color:black;display: flex;justify-content: space-between;padding: 1.25rem 4rem;">
+
+                                <div class="row col-md-9 col-lg-11 justify-content-between">
+                                    <div class="task-label col-sm-12 col-md-5"> <%=entries[i].date.getDate()%>/<%=entries[i].date.getMonth()+1%>/<%=entries[i].date.getFullYear()%> </div>
+                                    <div class="task-label col-sm-12 col-md-7"> Tasks Completed: <%=entries[i].completed%>/<%=entries[i].all%></div>
+                                </div>
+
+                                <div class="task-menu">
+                                    <a href="/entry/<%=entries[i]._id %>" style="cursor:pointer;"><span class="material-icons">edit</span></a>
+                                    <a onclick="removeEntry('<%=entries[i]._id %>')" style="cursor:pointer;"><span class="material-icons"> delete </span></a>
+                                </div>
+              
+                            </div>
+                        </div>
+                
+                    <% }} else{ %>
+
+                        <div style="text-align: center;margin: 7vh;font-family: var(--bs-font-sans-serif);color: #929292;font-size: 1.35rem;font-variant: petite-caps;">
+                           <strong> You have no added entries yet.  </strong> <br/>
+                            <span style="font-size: 1.2rem;font-style: italic;font-variant: none;"> You can add one by clicking on the icon above. </span> 
+                        </div>
+          
+                      <%} %>
+            </div>
+        </div>
+    </div>
+    
+    <div style="height:25vh;"></div>
+</section>
+
+
+<%- include ('partials/footer.ejs') %>

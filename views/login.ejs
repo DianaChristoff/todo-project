@@ -1,0 +1,23 @@
+<%- include ('partials/head.ejs') %>
+      <div class="container">
+         <header>Login Form</header>
+         <form>
+             <div class="input-field">
+                 <input type="text" name="email" id="email" required>
+                 <label>Email</label>
+             </div>
+             <div class="input-field">
+                 <input class="pswrd" name="password" id="password" type="password" required>
+                 <span class="show">SHOW</span>
+                 <label>Password</label>
+             </div>
+          <div class="button">
+             <div class="inner"></div>
+             <button class="submit">LOGIN</button>
+          </div>
+         </form>
+         <div class="signup">
+           Not a member? <a href="/register">Sign Up now</a>
+         </div>
+       </div>
+ <%- include ('partials/foot.ejs') %>

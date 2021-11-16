@@ -1,0 +1,65 @@
+</div>
+
+
+<!-- Footer -->
+<footer id="footer" style="background-color: #a6c2d7;">
+    <div class="container">
+        <hr />
+        <!-- Footer 1st Row -->
+        <div class="footer-second-row">
+
+            <span class="text-muted">CSCB854: Съвременни тенденции в Интернет технологиите - Курсова работа на Диана Христова F79277</span>
+        </div>
+    </div>
+</footer>
+<!-- Footer / End -->
+<!-- Content / End -->
+</div>
+<!-- JS Core -->
+<script src="/assets/js/parallax.js"></script>
+<script src="/assets/js/mc-calendar.min.js"></script>
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/assets/js/functions.js"></script>
+</body>
+
+<script>
+    var entry_check = document.getElementById('entry_id');
+
+    if(entry_check != undefined){
+        if (entry_check.value!= '') {
+
+            array=$('#date').val().split('/');
+            date_input=array[2]+'-'+array[1]+'-'+array[0];
+            date =new Date(date_input);
+
+            const myDatePicker = MCDatepicker.create({
+                el: '#date',
+                dateFormat: 'DD/MM/YYYY', //dateFormat: 'DD MMM YYYY',
+                firstWeekday: 1,
+                bodyType: 'modal',
+                customMonths: [ 'January', 'February', 'March', 'April',  'May', 'June', 
+                            'July', 'August', 'September', 'October', 'November', 'December'],
+                selectedDate: date, // today
+            }) 
+            
+        }else {
+            const myDatePicker = MCDatepicker.create({
+                el: '#date',
+                dateFormat: 'DD/MM/YYYY', //dateFormat: 'DD MMM YYYY',
+                firstWeekday: 1,
+                bodyType: 'modal',
+                customMonths: ['January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'],
+                selectedDate: new Date(), // today
+            })
+            
+            var date = new Date();
+        
+        }
+    } 
+   
+    
+   
+</script>

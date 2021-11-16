@@ -1,0 +1,87 @@
+    </div>
+</body>
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    var flag = document.getElementById('confirmPassword');
+
+       var input = document.querySelectorAll('.pswrd');
+       var show = document.querySelectorAll('.show');
+       show.forEach(element=>{ 
+           element.addEventListener('click', active);
+        })
+        
+        function active(){
+            if(input[0].type === "password"){
+                input.forEach(element => {element.type = "text";})
+                show.forEach(element=>{
+                    element.style.color="#1DA1F2";
+                    element.textContent="HIDE";
+                })
+            }else{
+                input.forEach(element => {element.type = "password";})
+                show.forEach(element=>{
+                    element.textContent="SHOW";
+                    element.style.color="#111";
+                })
+            }
+        }
+
+        if(flag==undefined){
+            $(".submit").click(function(event){
+                event.preventDefault();
+                let status = "submit";
+                let userObject= JSON.stringify({
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                });
+                
+                $.ajax({
+                    url: "/login",
+                    type: "POST",
+                    data: userObject,                  
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result){
+                        toastr.success(result.responseText , 'Success');
+                        setTimeout(()=> {
+                            window.location.href = '/';
+                        } , 1000);
+                    },
+                    error: response => {
+                        toastr.error(response.responseText , 'Error!');
+                    }
+                })
+            })
+
+        }else{
+            $(".submit").click(function(event){
+                event.preventDefault();
+                let status = "submit";
+                let userObject=  JSON.stringify({
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    confirmPassword: $('#confirmPassword').val()
+                });
+                
+                $.ajax({
+                    url: "/register",
+                    type: "POST",
+                    data: userObject,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result){
+                        toastr.success(result.responseText , 'Success');
+                        setTimeout(()=> {
+                            window.location.href = '/login';
+                        } , 2000);
+                    },
+                    error: response => {
+                        toastr.error(response.responseText , 'Error!')
+                    }
+                })
+            })
+        }
+   
+</script>

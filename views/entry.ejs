@@ -1,0 +1,130 @@
+<%- include ('partials/header.ejs') %>
+
+  <section id="tasks" class="tasks">
+
+    <div class="shadow" style="box-shadow: unset !important;"></div>
+    <div class="content opacity container">
+
+      <div class="row">
+        <a class="btn btn-outline-secondary col-9 col-md-4 col-lg-1" href="/" role="button" style="color: white !important;border-radius: 50px;display: flex;flex-direction: row;flex-basis:170px;align-items: center;">
+          <span class="material-icons" style="font-size: 2rem;">chevron_left</span>
+          <span>Back To Entries</span>
+        </a>
+      </div>
+
+        <input type="hidden" id="entry_id" name="entry_id" <% if(entry) { %>  value="<%=entry._id%>" <% } %> >
+
+        <div class="row justify-content-between col-md-9 flex-lg-row-reverse my-5">
+            <a class="col-md-3 mb-5 col-lg-2 col-xl-1 btn btn-outline-secondary material-icons" onclick="saveEntry()"   role="button" style="color: white !important;font-size: 3rem;border-radius: 60px;"> save</a>
+            <div class="form__group field col-md-6 col-lg-4"> 
+              <input type="input" class="form__field" placeholder="Date" name="date" id='date' <% if(entry) { %>  value="<%=entry.date.getDate()%>/<%=entry.date.getMonth()+1%>/<%=entry.date.getFullYear()%>" <% } %> required />
+              <label for="date" class="cursive-txt form__label">Date</label>
+            </div>
+        </div>
+
+        <div class="form__group field col-md-10 my-5">
+          <input type="input" class="form__field" placeholder="What am I greatful for today?" name="gratitude" id='gratitude'  <% if(entry) { %> value= "<%=entry.gratitude%>" <% } %> />
+          <label for="gratitude" class="cursive-txt form__label">What am I greatful for today?</label>
+        </div>
+
+        <div class="form__group field col-md-10 my-5">
+          <input type="input" class="form__field" placeholder="Achievement I could be proud of" name="achievement" id='achievement'   <% if(entry) { %> value= "<%=entry.achievement%>" <% } %> />
+          <label for="achievement" class="cursive-txt form__label">Achivement I'm proud of</label>
+        </div>
+
+        <div class="col-sm-11 col-lg-11 col-xl-6 mx-auto my-5">
+          <div class="cursive-txt" style="text-align: center;">To Do
+            <a class="btn btn-outline-secondary" href='#' role="button" data-toggle="modal" data-target="#addTaskModal" style="color: white !important;border-radius: 50px; padding: 0.15rem 0.5rem;/*border: none;*/" data-bs-toggle="tooltip" data-bs-placement="top" title="Add New Entry">
+              <span  class="material-icons my-1" style="text-decoration:none;color:white !important;font-size: 2rem;">add_task</span>
+            </a>
+          </div>
+          <div class="accordion" id="accordionExample">
+            <% if (todoTasks && todoTasks.length) { todoTasks.forEach(details=> { %>
+              <div class="card">
+                <div class="card-header" id="heading_<%=details._id%>"
+                  style="color:black;display: flex;justify-content: space-between;padding: 15px;">
+  
+                  <input type="checkbox" class="cbx" id="task_<%=details._id%>"  onclick="changeTaskStatus(this)" style="display:none" <% if(details.completed) { %> checked <% } %>>
+                  <label for="task_<%=details._id%>" id="task_label_<%=details._id%>" class="check">
+                    <svg width="25px" height="25px" viewBox="0 0 30 30">
+                      <path d="M1,15 L1,6 C1,3.5 3.5,1 6,1 L24,1 C26.5,1 29,2 29,6 L29,24 C29,27 27,29 24,29 L6,29 C3.5,29 1,27 1,24 L1,15 Z">
+                      </path>
+                      <polyline points="1 15 12 24 26 7"></polyline>
+                    </svg>
+                    <span class="task-label Task Label mx-3">
+                      <%=details.content%>
+                    </span>
+                  </label>
+  
+                  <div class="task-menu">
+                    <span class="material-icons" type="button" data-toggle="collapse" data-target="#collapse_<%=details._id%>"
+                      aria-expanded="false" aria-controls="collapse_<%=details._id%>" aria-hidden="true" style="background-color:unset !important;">edit</span>
+                    <span onclick="removeTask('<%=details._id%>')" type="button" aria-hidden="true" class="material-icons"> delete </span>
+  
+                  </div>
+  
+                </div>
+  
+                <div id="collapse_<%=details._id%>" class="collapse" aria-labelledby="heading_<%=details._id%>"
+                  data-parent="#accordionExample">
+                  <div class="card-body" style="color:black;display: flex;justify-content: space-around;">
+                    <input type="text" class="col-md-10" id="task_edit_<%=details._id%>" value="<%=details.content%>"
+                      style="margin-left: 5px;border: 0;border-bottom: 1px solid black;line-height: 1.5;font-size: 1.2rem;">
+                    <div class="task-menu">  
+                      <span class="material-icons" type="button" onclick="editTask('<%=details._id%>')" aria-hidden="true" style="font-weight: bolder;">done</span>
+                      <span class="material-icons" type="button" data-toggle="collapse" data-target="#collapse_<%=details._id%>"
+                          aria-expanded="false" aria-controls="collapse_<%=details._id%>" aria-hidden="true" style="font-weight: bolder;">clear</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <% })}else{ %>
+
+                <div style="text-align: center;margin: 3vh;font-family: var(--bs-font-sans-serif);color: #929292;font-size: 1.35rem;font-variant: petite-caps;">
+                  <strong> You have no added tasks yet.  </strong> <br/>
+                   <span style="font-size: 1.2rem;font-style: italic;font-variant: none;"> You can add one by clicking on the icon above. </span> 
+               </div>
+
+              <%} %>
+  
+          </div>
+        <div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="cursive-txt modal-title" id="newTaskModalTitle" style="color:black;font-size:2rem">Add new task
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background-color: unset; border: none;">
+            <span class='material-icons' aria-hidden="true">close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="new_task" onKeyPress="{(e) => e.key === 'Enter' && addNewTask()}">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="cursive-txt btn btn-primary" onclick="addNewTask()"
+            style="font-family: 'Open Sans', sans-serif;font-family: 'Raleway', sans-serif;font-size:1rem;background-color: #4f7dc2;border-color: #4f7dc2;">Add
+            Task</button>
+          <button type="button" class="cursive-txt btn btn-secondary" data-dismiss="modal"
+            style="font-family: 'Open Sans', sans-serif;font-family: 'Raleway', sans-serif;font-size:1rem">Discard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include ('partials/footer.ejs') %>
